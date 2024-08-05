@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<title>3D Suitcase</title>
+<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}" />
+<link rel="stylesheet" href="{{url_for('static', filename='css/output-style.css')}}">
+
+{% endblock %}
+
+{% block body %}
+
+<div class="loadingContent" id="loadingContent">
+  Loading 3D Model
+  <div class="loading">
+    <div id="loadingBar" class="barBlue"></div>
+  </div>
+</div>
+<div id="container3d_replace">
+  <div id="main-menu" class="absolute w-full top-1.5 md:top-2.5 lg:top-5">
+    <div class="mx-auto lg:w-fit uppercase flex justify-center">
+      <div class="flex gap-x-5 pt-1 md:pt-2.5 lg:pt-3.5 px-2.5 md:px-5 lg:px-8 text-xl bg-white rounded-md ">
+        <div id="configurator" class="border-b-1 pb-3.5 px-2.5 md:px-5 lg:px-7 border-b-black cursor-pointer">Configurator</div>
+        <div id="animations" class="pb-3.5 px-2.5 md:px-5 lg:px-7 border-b-black cursor-pointer">Animations</div>
+      </div>
+    </div>
+  </div>
+  <section id="body-menu" class="absolute top-auto md:top-1/4 left:0 md:left-auto md:right-8 lg:right-10 2xl:right-16 w-full md:w-fit rounded-lg pt-5 pb-2.5 md:pb-5 px-3 md:px-4 lg:px-6 bg-white hidden flex-col gap-3 bottom-0 md:bottom-auto">
+    <div class="flex justify-between text-xl">
+      <span class="font-medium uppercase">Body Color</span>
+      <button class="leave-menu" class="text-zinc-400">X</button>
+    </div>
+    <div class="flex justify-between">
+      <span>Select Color</span>
+      <span id="selected-color">ALUMINIUM</span>
+    </div>
+    <div class="grid grid-cols-6 md:grid-cols-3 gap-x-5 md:gap-x-8 gap-y-3">
+      {% for color in ['gray', 'black', 'red', 'blue', 'olive', 'orange'] %}
+        <div id="gradient-div-{{ color }}" class="color-item"></div>
+      {% endfor %}
+    </div>
+    <div class="flex justify-between mt-3">
+      <span>Image</span>
+      <span class="uppercase">No Image</span>
+    </div>
+    <div id="no-image" class="rounded-full bg-gray-300 h-10 w-10 border-black border-1"></div>
+    <div class="flex justify-between mt-1 md:mt-3 lg:mt-5">
+      <span id="prev-arrow" class="cursor-pointer">⟵</span>
+      <div id="next-arrow" class="flex gap-2">
+        Next
+        <span class="cursor-pointer">⟶</span>
+      </div>
+    </div>
+  </section>
+  <section id="handles-menu" class="absolute top-auto md:top-1/4 left:0 md:left-auto md:right-8 lg:right-10 2xl:right-16 w-full md:w-fit rounded-lg pt-5 pb-2.5 md:pb-5 px-3 md:px-4 lg:px-6 bg-white hidden flex-col gap-3 bottom-0 md:bottom-auto">
+    <div class="flex justify-between text-xl">
+      <span class="font-medium uppercase">Handles Color</span>
+      <button class="leave-menu" class="text-zinc-400">X</button>
+    </div>
+    <div class="flex justify-between">
+      <span>Select Color</span>
+      <span id="selected-color">ALUMINIUM</span>
+    </div>
+    <div class="grid grid-cols-6 md:grid-cols-3 gap-x-5 md:gap-x-8 gap-y-3">
+      {% for color in ['gray', 'black', 'red', 'blue', 'olive', 'orange'] %}
+        <div id="gradient-div-{{ color }}" class="color-item"></div>
+      {% endfor %}
+    </div>
+    <div class="flex justify-between mt-3">
+      <span>Image</span>
+      <span class="uppercase">No Image</span>
+    </div>
+    <div id="no-image" class="rounded-full bg-gray-300 h-10 w-10 border-black border-1"></div>
+    <div class="flex justify-between mt-1 md:mt-3 lg:mt-5">
+      <span id="prev-arrow" class="cursor-pointer">⟵</span>
+      <div id="next-arrow" class="flex gap-2">
+        Next
+        <span class="cursor-pointer">⟶</span>
+      </div>
+    </div>
+  </section>
+  <section id="corners-menu" class="absolute top-auto md:top-1/4 left:0 md:left-auto md:right-8 lg:right-10 2xl:right-16 w-full md:w-fit rounded-lg pt-5 pb-2.5 md:pb-5 px-3 md:px-4 lg:px-6 bg-white hidden flex-col gap-3 bottom-0 md:bottom-auto">
+    <div class="flex justify-between text-xl">
+      <span class="font-medium uppercase">Corners Color</span>
+      <button class="leave-menu" class="text-zinc-400">X</button>
+    </div>
+    <div class="flex justify-between">
+      <span>Select Color</span>
+      <span id="selected-color">ALUMINIUM</span>
+    </div>
+    <div class="grid grid-cols-6 md:grid-cols-3 gap-x-5 md:gap-x-8 gap-y-3">
+      {% for color in ['gray', 'black', 'red', 'blue', 'olive', 'orange'] %}
+        <div id="gradient-div-{{ color }}" class="color-item"></div>
+      {% endfor %}
+    </div>
+    <div class="flex justify-between mt-3">
+      <span>Image</span>
+      <span class="uppercase">No Image</span>
+    </div>
+    <div id="no-image" class="rounded-full bg-gray-300 h-10 w-10 border-black border-1"></div>
+    <div class="flex justify-between mt-1 md:mt-3 lg:mt-5">
+      <span id="prev-arrow" class="cursor-pointer">⟵</span>
+      <div id="next-arrow" class="flex gap-2 cursor-pointer">
+        Next &nbsp;⟶
+      </div>
+    </div>
+  </section>
+  <section id="wheels-menu" class="absolute top-auto md:top-1/4 left:0 md:left-auto md:right-8 lg:right-10 2xl:right-16 w-full md:w-fit rounded-lg pt-5 pb-2.5 md:pb-5 px-3 md:px-4 lg:px-6 bg-white hidden flex-col gap-3 bottom-0 md:bottom-auto">
+    <div class="flex justify-between text-xl">
+      <span class="font-medium uppercase">Wheels Color</span>
+      <button class="leave-menu" class="text-zinc-400">X</button>
+    </div>
+    <div class="flex justify-between">
+      <span>Select Color</span>
+      <span id="selected-color">GRAY</span>
+    </div>
+    <div class="grid grid-cols-6 md:grid-cols-3 gap-x-5 md:gap-x-8 gap-y-3">
+      {% for color in ['gray', 'black', 'red', 'blue', 'olive', 'orange'] %}
+        <div id="gradient-div-{{ color }}" class="color-item"></div>
+      {% endfor %}
+    </div>
+    <div class="flex justify-between mt-3">
+      <span>Image</span>
+      <span class="uppercase">No Image</span>
+    </div>
+    <div id="no-image" class="rounded-full bg-gray-300 h-10 w-10 border-black border-1"></div>
+    <div class="flex justify-between mt-1 md:mt-3 lg:mt-5">
+      <span id="prev-arrow" class="cursor-pointer">⟵</span>
+      <div id="next-arrow" class="flex gap-2">
+        Next
+        <span class="cursor-pointer">⟶</span>
+      </div>
+    </div>
+  </section>
+  <div id="submenu" class="absolute bottom-8 md:bottom-10 lg:bottom-12 w-full flex">
+    <div class="w-fit mx-auto grid grid-cols-2 md:flex justify-center gap-5 uppercase">
+      {% for menu_name in ['Body', 'Handles', 'Corners', 'Wheels'] %}
+      <div class="submenu-item justify-center md:justify-start">
+        <input type="radio" class="custom-radio hidden md:block" name="radio" />
+        <span>{{ menu_name }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script src="https://distcdn.unlimited3d.com/pres/v/2.10.0/unlimited3d.min.js"></script>
+<script type="text/javascript" src="/static/js/constants.js"></script>
+<script type="text/javascript" src="/static/js/utils.js"></script>
+<script type="text/javascript" src="/static/js/animations.js"></script>
+<script type="text/javascript" src="/static/js/configurator.js"></script>
+
+{% endblock %}
